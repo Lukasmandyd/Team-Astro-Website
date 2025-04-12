@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Team Astro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                     <!-- *** Replace this comment with your logo *** -->
+                    <img src="input_file_0.png" alt="Team Astro Logo">
+                    <!-- ****************************************** -->
+                 </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="team.html">Roster</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                    <li><a href="socials.html">Socials</a></li>
+                    <li><a href="tournaments.html">Tournaments</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="contact-info">
+            <div class="container">
+                <h2>Contact Us</h2>
+                <p style="text-align:center; margin-bottom: 2rem; color: #333;">Have questions, partnership inquiries, or just want to say hi? Fill out the form below or use our direct contact information.</p>
+
+                <!-- Contact Form -->
+                <form id="contactForm" class="contact-form">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
+
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" required></textarea>
+
+                    <!-- This button will trigger the email client via JavaScript -->
+                    <button type="button" id="submitButton" class="cta-button">Send Message</button>
+                </form>
+
+                <div style="text-align: center; margin-top: 3rem;">
+                    <h3>Direct Contact</h3>
+                    <p><strong>Email:</strong> <a href="mailto:teamastro.asobusiness@gmail.com" style="color: #000;">teamastro.asobusiness@gmail.com</a></p>
+                    <!-- Add other contact methods if applicable (e.g., Discord, Twitter) -->
+                    <p><strong>Discord:</strong> <a href="https://discord.gg/teamastro">Join our Discord</a></p>
+                     <!-- <p><strong>Twitter:</strong> @YourTwitterHandle</p> -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Team Astro. All Rights Reserved.</p> <!-- Replace [Current Year] -->
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript to handle the contact form submission via mailto:
+        document.getElementById('submitButton').addEventListener('click', function() {
+            const name = document.getElementById('name').value;
+            const userEmail = document.getElementById('email').value; // Get user's email to potentially include in body
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            const recipientEmail = 'teamastro.asobusiness@gmail.com';
+
+            // Basic validation check
+            if (!name || !userEmail || !subject || !message) {
+                alert('Please fill out all fields before sending.');
+                return; // Stop if fields are empty
+            }
+
+            // Construct the mailto link
+            // Encode components to handle special characters like spaces, line breaks
+            let mailtoLink = `mailto:${recipientEmail}`;
+            mailtoLink += `?subject=${encodeURIComponent(subject)}`;
+            mailtoLink += `&body=${encodeURIComponent(`Name: ${name}\nEmail: ${userEmail}\n\nMessage:\n${message}`)}`;
+
+            // Limit URL length (some clients have issues with very long mailto links)
+            if (mailtoLink.length > 2000) {
+                 mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${userEmail}\n\nMessage content too long to pre-fill completely.`)}`;
+                alert("Your message is very long and might not fully pre-fill in your email client. Please check before sending.");
+            }
+
+            // Open the user's default email client
+            window.location.href = mailtoLink;
+        });
+    </script>
+
+</body>
+</html>
