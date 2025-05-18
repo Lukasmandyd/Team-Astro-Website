@@ -1,0 +1,782 @@
+/* style.css - Shared styles for Team DYD - Dark Glassmorphism Edition */
+
+/* ==================
+   CSS Custom Properties (Variables)
+   ================== */
+:root {
+    --font-primary: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    --font-legacy: Arial, Helvetica, sans-serif;
+
+    /* Colors - Adjusted for darker, glassmorphism feel */
+    --color-text-on-panels: #E0E0E0;
+    --color-text-on-panels-secondary: #C5C5C5;
+    --color-text-on-panels-tertiary: #A0A0A0;
+    --color-text-light: #FFFFFF;
+    --color-text-light-dim: #dddddd;
+
+    --color-bg-body-fallback: #1a1a1d;
+
+    /* Header styling (centered logo, nav buttons below) */
+    --color-header-logo-text: var(--color-text-light);
+    --color-header-nav-button-bg: rgba(55, 58, 64, 0.65);
+    --color-header-nav-button-bg-hover: rgba(70, 73, 80, 0.8);
+    --color-header-nav-button-text: var(--color-text-light);
+    --color-header-nav-button-active-bg: rgba(80, 83, 90, 0.9);
+
+    /* Panel Backgrounds (Hero, Cards, Form) - Darker, semi-transparent */
+    --color-panel-bg: rgba(35, 38, 43, 0.75);
+    --color-panel-border: rgba(80, 80, 80, 0.4);
+
+    /* Input Backgrounds for Forms */
+    --color-input-bg: rgba(50, 53, 58, 0.8);
+    --color-input-border: rgba(90, 93, 98, 0.6);
+    --color-input-text: var(--color-text-on-panels);
+    --color-input-focus-border: var(--color-text-light-dim);
+    --color-input-placeholder: #888b93;
+
+    /* Button Styling (CTA) - MODIFIED to align with header nav button style */
+    --color-button-solid-bg: var(--color-header-nav-button-bg);
+    --color-button-text: var(--color-header-nav-button-text);
+    --color-button-solid-hover-bg: var(--color-header-nav-button-bg-hover);
+
+    /* Spacing */
+    --spacing-unit: 1rem;
+    --header-padding-y: 1.5rem;
+    --section-padding-y: 2.5rem;
+    --container-padding-x: 20px;
+
+    /* Borders */
+    --border-radius-small: 6px;
+    --border-radius-medium: 10px;
+    --border-radius-large: 12px;
+
+    /* Shadows - Can be more subtle with dark UI */
+    --shadow-sm: 0 2px 5px rgba(0,0,0,0.25);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.35);
+    --shadow-lg: 0 7px 18px rgba(0,0,0,0.3);
+    --shadow-xl: 0 10px 25px rgba(0,0,0,0.35);
+
+    /* Background Image and Effects */
+    --background-blur-amount: 7px;
+    --background-image-url: url('background.png'); /* !!! REPLACE WITH YOUR PNG URL !!! */
+    --background-image-darken-overlay: rgba(0, 0, 0, 0.45);
+}
+
+
+/* General Reset & Base Styles */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 100%;
+}
+
+body {
+    font-family: var(--font-primary), var(--font-legacy);
+    line-height: 1.6;
+    color: var(--color-text-on-panels);
+    background-color: var(--color-bg-body-fallback);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Blurred Background Element */
+body::before {
+    content: '';
+    position: fixed;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -1;
+    background-image:
+        linear-gradient(var(--background-image-darken-overlay), var(--background-image-darken-overlay)),
+        var(--background-image-url);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    filter: blur(var(--background-blur-amount));
+}
+
+/* Content wrapper to sit on top of the blurred background */
+.site-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+}
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding-x);
+    padding-right: var(--container-padding-x);
+}
+
+/* ==================
+   Header Styling (Centered Logo, Nav Buttons Below) - MODIFIED
+   ================== */
+header {
+    color: var(--color-header-logo-text);
+    padding: var(--header-padding-y) 0;
+    /* position: sticky; /* REMOVED - header will now be static */
+    /* top: 0; /* No longer needed */
+    /* z-index: 100; /* No longer strictly needed for stacking against main content, but can keep for other potential overlaps */
+    z-index: 10; /* Reduced z-index, still above body::before */
+    /* ADD a background to the header if you want it to visually separate from the blurred body background */
+    /* background-color: rgba(26, 26, 29, 0.85); /* Example: Slightly transparent dark background */
+    /* Or keep it transparent to blend with the body blur */
+}
+
+header .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+header .logo a {
+    display: inline-block;
+    margin-bottom: calc(var(--spacing-unit) * 1.25);
+}
+
+header .logo img {
+    max-height: 90px;
+    vertical-align: middle;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-unit);
+    padding: 0;
+}
+
+header nav ul li {
+    margin-left: 0;
+}
+
+header nav ul li a {
+    color: var(--color-header-nav-button-text);
+    background-color: var(--color-header-nav-button-bg);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: calc(var(--spacing-unit) * 0.65) calc(var(--spacing-unit) * 1.3);
+    border-radius: var(--border-radius-small);
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    display: inline-block;
+    box-shadow: var(--shadow-sm);
+}
+
+header nav ul li a:hover,
+header nav ul li a:focus-visible {
+    background-color: var(--color-header-nav-button-bg-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    outline: none;
+    color: var(--color-header-nav-button-text);
+}
+
+header nav ul li a.active {
+    background-color: var(--color-header-nav-button-active-bg);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.25), var(--shadow-sm);
+    transform: translateY(-1px);
+}
+
+/* ==================
+   Main Content Area - MODIFIED
+   ================== */
+main {
+    flex-grow: 1;
+    /* padding-top: 14rem; /* REMOVED - No longer needed for static header */
+    padding-top: var(--section-padding-y); /* Use standard section padding or a custom value */
+    padding-bottom: calc(var(--spacing-unit) * 2.5);
+}
+
+/* ==================
+   General Section Styling
+   ================== */
+section {
+    padding-top: var(--section-padding-y);
+    padding-bottom: var(--section-padding-y);
+}
+
+section:last-of-type > .container > .content-panel:last-child,
+section:last-of-type > .content-panel:last-child {
+    margin-bottom: 0;
+}
+
+.content-panel {
+    background-color: var(--color-panel-bg);
+    padding: calc(var(--spacing-unit) * 2);
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-lg);
+    margin-bottom: calc(var(--spacing-unit) * 2.5);
+    border: 1px solid var(--color-panel-border);
+    color: var(--color-text-on-panels);
+}
+
+section h1, section h2 {
+    text-align: center;
+    font-size: 2.3rem;
+    margin-bottom: calc(var(--spacing-unit) * 1.75);
+    color: var(--color-text-on-panels);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
+
+section h3 {
+     font-size: 1.5rem;
+     margin-bottom: calc(var(--spacing-unit) * 1.25);
+     color: var(--color-text-on-panels-secondary);
+     padding-bottom: 5px;
+     border-bottom: 1px solid var(--color-panel-border);
+     display: inline-block;
+     font-weight: 600;
+}
+
+/* ==================
+   Hero Section Styling
+   ================== */
+.hero.content-panel {
+    padding: calc(var(--spacing-unit) * 2.5) calc(var(--spacing-unit) * 2);
+    text-align: center;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: var(--spacing-unit);
+}
+
+.hero p {
+    font-size: 1.15rem;
+    color: var(--color-text-on-panels-secondary);
+    margin-bottom: calc(var(--spacing-unit) * 2);
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+}
+
+/* ==================
+   Button Styling (CTA)
+   ================== */
+.cta-button {
+    display: inline-block;
+    background-color: var(--color-button-solid-bg);
+    color: var(--color-button-text);
+    border: none;
+    padding: 13px 30px;
+    border-radius: var(--border-radius-small);
+    font-size: 1.05rem;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-sm);
+    letter-spacing: 0.8px;
+}
+
+.cta-button:hover,
+.cta-button:focus-visible {
+    background-color: var(--color-button-solid-hover-bg);
+    color: var(--color-button-text);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+/* ==================
+   Grid System for Cards (Team, Tournament)
+   ================== */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: calc(var(--spacing-unit) * 2);
+    margin-top: calc(var(--spacing-unit) * 2);
+}
+
+.card-item {
+    text-align: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-panel-bg);
+    padding: calc(var(--spacing-unit) * 2);
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-panel-border);
+    color: var(--color-text-on-panels);
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    border-radius: var(--border-radius-medium);
+}
+.card-link:hover .card-item,
+.card-link:focus-visible .card-item {
+     transform: translateY(-7px) scale(1.025);
+     box-shadow: var(--shadow-xl);
+}
+.card-link:focus-visible {
+    outline: 3px solid var(--color-button-solid-bg);
+    outline-offset: 3px;
+}
+.card-link:focus-visible .card-item {
+    outline: none;
+}
+
+
+/* Team Grid Styling */
+.team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    background-image: linear-gradient(var(--color-input-bg), var(--color-input-bg)),
+                      linear-gradient(135deg, #777, #333);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    margin: 0 auto calc(var(--spacing-unit) * 1.25) auto;
+    object-fit: cover;
+    box-shadow: var(--shadow-sm);
+}
+
+.team-member h4 {
+    font-size: 1.4rem;
+    margin-bottom: 0.6rem;
+    color: var(--color-text-on-panels);
+}
+
+.team-member p {
+    color: var(--color-text-on-panels-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-align: left;
+    padding: 0 var(--spacing-unit);
+    flex-grow: 1;
+}
+
+/* Tournament Grid Styling */
+.tournament-grid {
+    align-items: stretch;
+}
+
+.tournament-item img {
+    width: calc(100% + (var(--spacing-unit) * 4));
+    margin-left: calc(var(--spacing-unit) * -2);
+    margin-right: calc(var(--spacing-unit) * -2);
+    margin-top: calc(var(--spacing-unit) * -2);
+    height: auto;
+    object-fit: cover;
+    display: block;
+    margin-bottom: var(--spacing-unit);
+    border-top-left-radius: calc(var(--border-radius-medium) - 1px);
+    border-top-right-radius: calc(var(--border-radius-medium) - 1px);
+}
+
+.tournament-item h4 {
+    font-size: 1.3rem;
+    margin-bottom: 0;
+    padding: 0 var(--spacing-unit) calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
+    min-height: 2.6em;
+    color: var(--color-text-on-panels);
+}
+.tournament-item p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--color-text-on-panels-secondary);
+    margin-top: calc(var(--spacing-unit) * 0.5);
+}
+
+
+/* ==================
+   Contact Form Styling
+   ================== */
+.contact-form-container {
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.contact-form {
+    margin-top: calc(var(--spacing-unit) * 2);
+    background-color: var(--color-panel-bg);
+    padding: calc(var(--spacing-unit) * 2);
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-panel-border);
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    color: var(--color-text-on-panels-secondary);
+    font-size: 1rem;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: calc(var(--spacing-unit) * 1.25);
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--border-radius-small);
+    font-family: inherit;
+    font-size: 0.95rem;
+    background-color: var(--color-input-bg);
+    color: var(--color-input-text);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: var(--color-input-placeholder);
+    opacity: 1;
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+    border-color: var(--color-input-focus-border);
+    box-shadow: 0 0 0 3px rgba(var(--color-input-focus-border), 0.25);
+    outline: none;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 140px;
+}
+
+.contact-form .cta-button {
+    width: 100%;
+}
+
+
+/* ==================
+   Social Links Styling
+   ================== */
+.social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: calc(var(--spacing-unit) * 1.25);
+    margin-top: calc(var(--spacing-unit) * 1.5);
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+    flex-wrap: wrap;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    padding: calc(var(--spacing-unit) * 0.25);
+    border-radius: 50%;
+    line-height: 0;
+}
+
+.social-links img {
+    height: 38px;
+    width: auto;
+    vertical-align: middle;
+    transition: filter 0.2s ease;
+    filter: brightness(0.9) contrast(1.1);
+}
+
+.social-links a:hover img {
+     filter: brightness(1.1) contrast(1.2);
+}
+
+.social-links a:hover,
+.social-links a:focus-visible {
+    transform: scale(1.15);
+    opacity: 0.9;
+    outline: none;
+}
+.social-links a:focus-visible {
+    box-shadow: 0 0 0 3px var(--color-button-solid-bg);
+}
+
+/* ==================
+   Page Specific Intro Paragraphs & Containers (Consolidated)
+   ================== */
+.intro-paragraph,
+#intro .content-panel .intro-paragraph,
+#team-list .content-panel .roster-intro-paragraph,
+#contact-info .content-panel .contact-intro-paragraph,
+#socials-content .content-panel .socials-intro-paragraph,
+#tournament-list .content-panel .tournaments-intro-paragraph,
+#about-content .content-panel p:first-of-type {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto calc(var(--spacing-unit) * 1.5) auto;
+    color: var(--color-text-on-panels-secondary);
+    line-height: 1.7;
+}
+#socials-content .content-panel .socials-intro-paragraph,
+#tournament-list .content-panel .tournaments-intro-paragraph,
+#team-list .content-panel .roster-intro-paragraph {
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+
+#intro .content-panel .intro-buttons-container {
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-unit);
+    margin-top: calc(var(--spacing-unit) * 1.5);
+}
+
+#contact-info .content-panel .direct-contact-details {
+    text-align: center;
+    margin-top: calc(var(--spacing-unit) * 2.5);
+    padding-top: calc(var(--spacing-unit) * 1.5);
+    border-top: 1px solid var(--color-panel-border);
+}
+
+#contact-info .content-panel .direct-contact-details h3 {
+    margin-bottom: var(--spacing-unit);
+}
+
+#contact-info .content-panel .direct-contact-details p {
+    margin-bottom: calc(var(--spacing-unit) * 0.75);
+    color: var(--color-text-on-panels-secondary);
+}
+
+#contact-info .content-panel .direct-contact-details p strong {
+    color: var(--color-text-on-panels);
+}
+
+#contact-info .content-panel .direct-contact-details a {
+    color: var(--color-button-solid-bg);
+    text-decoration: none;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+#contact-info .content-panel .direct-contact-details a:hover,
+#contact-info .content-panel .direct-contact-details a:focus-visible {
+    color: var(--color-button-solid-hover-bg);
+    text-decoration: underline;
+    outline: none;
+}
+
+#socials-content .content-panel {
+    text-align: center;
+}
+
+#socials-content .content-panel .social-links {
+    margin-top: calc(var(--spacing-unit) * 1.5);
+}
+
+#about-content .content-panel p {
+    margin-bottom: var(--spacing-unit);
+    line-height: 1.7;
+    color: var(--color-text-on-panels);
+}
+#about-content .content-panel h3 + p {
+    color: var(--color-text-on-panels-secondary);
+}
+#about-content .content-panel .about-button-container {
+    text-align: center;
+    margin-top: calc(var(--spacing-unit) * 2);
+}
+
+
+/* ==================
+   Footer Styling
+   ================== */
+footer {
+    background-color: #181a1d;
+    color: var(--color-text-light-dim);
+    text-align: center;
+    padding: calc(var(--spacing-unit) * 1.8) 0;
+    margin-top: auto;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+    z-index: 10;
+}
+
+/* ==================
+   Responsiveness Adjustments
+   ================== */
+@media (max-width: 768px) {
+    :root {
+        --header-padding-y: 1rem;
+        --background-blur-amount: 5px;
+        --section-padding-y: 2rem;
+    }
+
+    /* MODIFIED main padding-top for tablet/mobile - now uses standard section padding */
+    main {
+        padding-top: var(--section-padding-y); 
+    }
+
+    section h1, section h2 { font-size: 1.9rem; }
+    section h3 { font-size: 1.3rem; }
+    .hero.content-panel { padding: calc(var(--spacing-unit) * 2); max-width: 95%;}
+    .hero h1 { font-size: 2.3rem; }
+    .hero p { font-size: 1.05rem; }
+
+    header .logo img { max-height: 70px; }
+    header nav ul { gap: calc(var(--spacing-unit) * 0.75); }
+    header nav ul li a {
+        padding: calc(var(--spacing-unit) * 0.6) var(--spacing-unit);
+        font-size: 0.9rem;
+    }
+
+    .content-panel {
+        padding: calc(var(--spacing-unit) * 1.5);
+        margin-bottom: calc(var(--spacing-unit) * 2);
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: calc(var(--spacing-unit) * 1.5);
+    }
+    .card-link:hover .card-item,
+    .card-link:focus-visible .card-item {
+        transform: translateY(-5px) scale(1.015);
+    }
+
+    .tournament-item img {
+        height: auto;
+        width: calc(100% + (var(--spacing-unit) * 3));
+        margin-left: calc(var(--spacing-unit) * -1.5);
+        margin-right: calc(var(--spacing-unit) * -1.5);
+        margin-top: calc(var(--spacing-unit) * -1.5);
+    }
+    .tournament-item h4 { font-size: 1.2rem; }
+
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form textarea {
+        padding: 12px;
+        margin-bottom: var(--spacing-unit);
+    }
+    .contact-form label { font-size: 0.95rem; }
+
+    .social-links img { height: 32px; }
+    .social-links { gap: var(--spacing-unit); }
+
+    footer { padding: calc(var(--spacing-unit) * 1.5) 0; }
+}
+
+@media (max-width: 480px) {
+    /* main padding-top will inherit from the 768px breakpoint (var(--section-padding-y)) */
+    section h1, section h2 { font-size: 1.7rem; }
+    .hero h1 { font-size: 2rem; }
+    .hero p { font-size: 1rem; }
+
+    header .logo img { max-height: 60px; }
+    header nav ul {
+        gap: calc(var(--spacing-unit) * 0.5);
+    }
+    header nav ul li a {
+        font-size: 0.85rem;
+        padding: calc(var(--spacing-unit) * 0.5) calc(var(--spacing-unit) * 0.8);
+    }
+
+    .team-member img { width: 120px; height: 120px; }
+    .cta-button { font-size: 1rem; padding: 12px 24px;}
+}
+
+/* Add these new rules to your style.css file */
+
+/* Styling for team categories */
+.team-category {
+    margin-top: calc(var(--spacing-unit) * 2.5);
+    margin-bottom: calc(var(--spacing-unit) * 2.5);
+}
+
+/* Adjust margin for the first category if it's directly after an intro paragraph */
+.roster-intro-paragraph + .team-category,
+section > .content-panel > h2 + .team-category { /* If no intro paragraph directly after h2 */
+    margin-top: calc(var(--spacing-unit) * 2.5); /* Consistent spacing after main intro */
+}
+.team-category:last-child {
+    margin-bottom: 0; /* Remove bottom margin if it's the last element in content-panel */
+}
+
+.team-category-title {
+    text-align: center;
+    font-size: 2rem; 
+    margin-bottom: calc(var(--spacing-unit) * 1.75);
+    color: var(--color-text-light); 
+    font-weight: bold;
+    letter-spacing: 1px; 
+}
+
+
+/* Modify existing .card-item rule */
+.card-item {
+    text-align: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-panel-bg);
+    padding: calc(var(--spacing-unit) * 2);
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-panel-border);
+    color: var(--color-text-on-panels);
+
+    /* --- ADDED/MODIFIED FOR CENTERING LOGIC --- */
+    max-width: 340px;  /* Or your preferred max card width */
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%; /* Ensures it tries to fill up to max-width in its grid cell */
+    /* --- END ADDED/MODIFIED --- */
+}
+
+/* Ensure .team-member (which is a .card-item) specific styles don't conflict */
+.team-member.card-item { /* Be more specific if needed, but .card-item should cover it */
+    /* any specific .team-member styles would go here if they needed to override .card-item */
+}
+
+
+/* Ensure .card-grid can still lay out multiple items correctly */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: calc(var(--spacing-unit) * 2);
+    margin-top: calc(var(--spacing-unit) * 2);
+    /* align-items: start; /* Ensures cards align to the start if they have different heights and max-width kicks in. Default is stretch. */
+                           /* With flex-direction: column and flex-grow:1 on p, height should be okay */
+}
+
+/* Ensure .roster-intro-paragraph has appropriate bottom margin */
+#team-list .content-panel .roster-intro-paragraph {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto calc(var(--spacing-unit) * 2.5) auto; /* Increased bottom margin for better spacing to first category title */
+    color: var(--color-text-on-panels-secondary);
+    line-height: 1.7;
+}

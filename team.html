@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team - Team Astro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="input_file_0.png" alt="Team Astro Logo">
+                 </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="team.html" class="active">Roster</a></li>
+                    <li><a href="staff.html">Team</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="socials.html">Socials</a></li>
+                    <li><a href="tournaments.html">Tournaments</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="team-list">
+            <div class="container">
+                <!-- ADDED .content-panel WRAPPER HERE for the entire section content -->
+                <div class="content-panel">
+                    <h2>Meet the Roster</h2>
+                    <!-- Removed inline style from p, added a class for better CSS targeting -->
+                    <p class="roster-intro-paragraph">The core members driving Team Astro forward.</p>
+
+                    <div class="team-grid card-grid"> <!-- Added .card-grid for consistency if your CSS uses it -->
+                        <!-- Team Member 1 -->
+                        <div class="team-member card-item"> <!-- Added .card-item for consistency -->
+                            <img src="Snowy.png" alt="Snowy Photo">
+                            <h4>Snowy</h4>
+                            <!-- The <p> tag will get default light text from .content-panel or .card-item -->
+                            <p>
+                                Name : Mika <br>
+                                Born : 14 August 2008 <br>
+                                Home Country : Germany <br>
+                                Home City : Frankfurt <br>
+                                Current Status : Active <br>
+                                Socials : N/A
+                            </p>
+                        </div>
+
+                        <!-- Team Member 2 -->
+                        <div class="team-member card-item"> <!-- Added .card-item -->
+                             <img src="Spytino.png" alt="Spytino Photo">
+                            <h4>Spytino</h4>
+                            <p>
+                                Name : Leandro <br>
+                                Born : 10 June 2009 <br>
+                                Home Country : Germany <br>
+                                Home City : Berlin <br>
+                                Current Status : Active <br>
+                                Socials : N/A
+                            </p>
+                        </div>
+
+                        <!-- Team Member 3 -->
+                        <div class="team-member card-item"> <!-- Added .card-item -->
+                             <img src="Jonas.png" alt="Jonas Photo">
+                                <h4>Jonas</h4>
+                                <p>
+                                    Name : Jonas <br>
+                                    Born : 05 December 2008 <br>
+                                    Home Country : Germany <br>
+                                    Home City : Frankfurt <br>
+                                    Current Status : Active <br>
+                                    Socials : N/A
+                            </p>
+                        </div>
+                        <!-- Add more team members as needed -->
+                    </div> <!-- END .team-grid -->
+                </div> <!-- END .content-panel -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Team Astro. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
